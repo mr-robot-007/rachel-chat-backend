@@ -6,7 +6,7 @@ ELEVEN_LABS_API_KEY = config("ELEVEN_LABS_API_KEY")
 # Eleven Labs
 # Convert Text to speech
 async def convert_text_to_speech(message):
-
+    # print("convert_tts called")
     # Define data/body
     body = {
         "model_id": "eleven_multilingual_v2",
@@ -14,7 +14,6 @@ async def convert_text_to_speech(message):
         "voice_settings": {
             "similarity_boost": 0,
             "stability": 0,
-            "use_speaker_boost":True,
         }
     }
     # Define voice (voice id)
@@ -33,12 +32,15 @@ async def convert_text_to_speech(message):
     try:
         response = requests.post(endpoint, json=body, headers=headers)
     except Exception as e:
+        print("exception occured on text_to_speech :35")
         return
 
     # Handle response
     if response.status_code == 200:
+        # print("OK",response.content)
         return response.content
     else:
+        # print("NOT OK")
         return 
 
 # model_id:  eleven_multilingual_v2
